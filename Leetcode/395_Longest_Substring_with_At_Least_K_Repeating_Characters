@@ -1,0 +1,16 @@
+from collections import Counter
+
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        if len(s) < k:
+            return 0
+
+        freq = Counter(s)
+        for ch, count in freq.items():
+            if count < k:
+                answer = 0
+                for part in s.split(ch):
+                    answer = max(answer, self.longestSubstring(part, k))
+                return answer
+
+        return len(s)
